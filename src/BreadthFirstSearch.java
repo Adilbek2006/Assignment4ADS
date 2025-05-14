@@ -11,5 +11,17 @@ public class BreadthFirstSearch<T> extends Search<T> {
         Queue<Vertex<T>> queue = new LinkedList<>();
         queue.add(start);
         visited.add(start);
+
+        while (!queue.isEmpty()) {
+            Vertex<T> current = queue.poll();
+            for (Edge<T> edge : graph.getEdges(current)) {
+                Vertex<T> neighbor = edge.getDestination();
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    edgeTo.put(neighbor, current);
+                    queue.add(neighbor);
+                }
+            }
+        }
     }
 }
